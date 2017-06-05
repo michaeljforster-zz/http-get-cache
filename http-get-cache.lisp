@@ -69,11 +69,7 @@ defaults to 300."
   (:documentation "Signalled by HTTP-GET when a RESPONSE for the URI
 is neither cached nor available via an HTTP GET request."))
 
-(defun http-get-not-found (uri)
-  "Signal an error of type HTTP-GET-NOT-FOUND for the URI."
-  (error 'http-get-not-found :uri uri))
-
-(defun http-get (uri cache &key (if-http-get-not-found :error))
+(defun http-get (uri cache)
   "Return the RESPONSE for the supplied URI. If a fresh RESPONSE for
 the URI exists in the CACHE then return that RESPONSE. If a stale
 RESPONSE for the URI exists in the CACHE then attempt to validate the
@@ -116,10 +112,8 @@ the \"max-age\" cache directive of the HTTP request and response."
                     (setf (response-headers response) headers
                           (response-timestamp response) (get-universal-time))
                     response)
-                   ((eq if-http-get-not-found :error)
-                    (http-get-not-found uri))
                    (t
-                    nil)))))
+                    (error 'http-get-not-found :uri uri))))))
     (bt:with-lock-held ((cache-mutex cache))
       (multiple-value-bind (response present-p)
           (gethash (uri-key uri) (cache-responses cache))
