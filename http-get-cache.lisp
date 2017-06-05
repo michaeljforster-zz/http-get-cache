@@ -62,6 +62,10 @@ defaults to 300."
 
 (define-condition http-get-not-found (http-get-error)
   ((uri :initarg :uri :reader http-get-not-found-uri))
+  (:report (lambda (condition stream)
+	     (format stream
+                     "No response available for URI: ~A"
+                     (http-get-not-found-uri condition))))
   (:documentation "Signalled by HTTP-GET when a RESPONSE for the URI
 is neither cached nor available via an HTTP GET request."))
 
