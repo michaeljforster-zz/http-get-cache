@@ -24,7 +24,7 @@
 
 (asdf:defsystem "http-get-cache"
   :description "Common Lisp library for caching HTTP GET responses"
-  :version "0.1.0"
+  :version "0.1.1"
   :author "Michael J. Forster <mike@forsterfamily.ca>"
   :license "MIT"
   :depends-on ("drakma")

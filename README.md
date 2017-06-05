@@ -15,10 +15,6 @@ being deployed with SBCL on FreeBSD/AMD64 and Linux/AMD64.
 
 ### Installation
 
-http-get-cache is not yet available via quicklisp. For now, clone the
-repository, tell ASDF where to find the system definition, and load
-the system with quicklisp:
-
 ```lisp
 (ql:quickload "http-get-cache")
 ```
